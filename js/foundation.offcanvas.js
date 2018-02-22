@@ -3,7 +3,7 @@
 import $ from 'jquery';
 import { Keyboard } from './foundation.util.keyboard';
 import { MediaQuery } from './foundation.util.mediaQuery';
-import { transitionend } from './foundation.util.core';
+import { transitionend, RegExpEscape } from './foundation.util.core';
 import { Plugin } from './foundation.plugin';
 
 import { Triggers } from './foundation.util.triggers';
@@ -118,10 +118,17 @@ class OffCanvas extends Plugin {
       }
     }
 
-    this.options.isRevealed = this.options.isRevealed || new RegExp(this.options.revealClass, 'g').test(this.$element[0].className);
+    // Get the revealOn option from the class.
+    var revealOnRegExp = new RegExp(RegExpEscape(this.options.revealClass) + '([^\\s]+)', 'g');
+    var revealOnClass = revealOnRegExp.exec(this.$element[0].className);
+    if (revealOnClass) {
+      this.options.isRevealed = true;
+      this.options.revealOn = this.options.revealOn || revealOnClass[1];
+    }
 
-    if (this.options.isRevealed === true) {
-      this.options.revealOn = this.options.revealOn || this.$element[0].className.match(/(reveal-for-medium|reveal-for-large)/g)[0].split('-')[2];
+    // Ensure the `reveal-on-*` class is set.
+    if (this.options.isRevealed === true && this.options.revealOn) {
+      this.$element.first().addClass(`${this.options.revealClass}${this.options.revealOn}`);
       this._setMQChecker();
     }
 
@@ -273,6 +280,7 @@ class OffCanvas extends Plugin {
    * @param {Object} event - Event object passed from listener.
    * @param {jQuery} trigger - element that triggered the off-canvas to open.
    * @fires OffCanvas#opened
+   * @todo also trigger 'open' event?
    */
   open(event, trigger) {
     if (this.$element.hasClass('is-open') || this.isRevealed) { return; }
@@ -294,15 +302,10 @@ class OffCanvas extends Plugin {
       this.$element.siblings('[data-off-canvas-content]').css('transition-duration', '');
     }
 
-    /**
-     * Fires when the off-canvas menu opens.
-     * @event OffCanvas#opened
-     */
     this.$element.addClass('is-open').removeClass('is-closed');
 
     this.$triggers.attr('aria-expanded', 'true');
-    this.$element.attr('aria-hidden', 'false')
-        .trigger('opened.zf.offcanvas');
+    this.$element.attr('aria-hidden', 'false');
 
     this.$content.addClass('is-open-' + this.position);
 
@@ -341,6 +344,12 @@ class OffCanvas extends Plugin {
     }
 
     this._addContentClasses();
+
+    /**
+     * Fires when the off-canvas menu opens.
+     * @event OffCanvas#opened
+     */
+    this.$element.trigger('opened.zf.offcanvas');
   }
 
   /**

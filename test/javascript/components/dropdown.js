@@ -77,4 +77,54 @@ describe('Dropdown', function() {
       plugin.alignment.should.equal('right')
     });
   });
+
+  describe('closeOnClick option', function() {
+    it('not closes a dropdown by clicking on the dropdown if closeOnClick option is true', function(done) {
+      $dropdownController = $(getDropdownController()).appendTo('body');
+      $dropdownContainer = $(getDropdownContainer()).appendTo('body');
+      plugin = new Foundation.Dropdown($dropdownContainer, {closeOnClick: true});
+
+      // Open it first...
+      plugin.open();
+
+      let spy = sinon.spy(plugin, 'close');
+
+      plugin.$element.trigger("click");
+
+      setTimeout(function() {
+        sinon.assert.notCalled(spy);
+        done();
+      }, 2);
+    });
+  });
+
+  describe('keyboard events', function () {
+    it('opens Dropdown on SPACE', function() {
+      $dropdownController = $(getDropdownController()).appendTo('body');
+      $dropdownContainer = $(getDropdownContainer()).appendTo('body');
+      plugin = new Foundation.Dropdown($dropdownContainer, {});
+      $dropdownController.focus()
+        .trigger(window.mockKeyboardEvent('SPACE'));
+
+      $dropdownContainer.should.be.visible;
+    });
+    it('focuses Dropdown on SPACE', function() {
+      $dropdownController = $(getDropdownController()).appendTo('body');
+      $dropdownContainer = $(getDropdownContainer()).appendTo('body');
+      plugin = new Foundation.Dropdown($dropdownContainer, {});
+      $dropdownController.focus()
+        .trigger(window.mockKeyboardEvent('SPACE'));
+
+      document.activeElement.should.be.equal($dropdownContainer[0]);
+    });
+    it('does not focus Dropdown when anchor is an input', function() {
+      $dropdownController = $('<input type="text" data-toggle="my-dropdown">').appendTo('body');
+      $dropdownContainer = $(getDropdownContainer()).appendTo('body');
+      plugin = new Foundation.Dropdown($dropdownContainer, {});
+      $dropdownController.focus()
+        .trigger(window.mockKeyboardEvent('SPACE'));
+
+      document.activeElement.should.be.equal($dropdownController[0]);
+    });
+  })
 });

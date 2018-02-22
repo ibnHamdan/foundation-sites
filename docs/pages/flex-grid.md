@@ -5,6 +5,11 @@ sass: scss/grid/_flex-grid.scss
 video: tpmQcZSPw4Q
 ---
 
+<div class="callout training-callout">
+  <p>Become a master of the Foundation Grids to create complex layouts faster and with less code. The new XY Grid is the newest and most powerful version. Stay up-to-date with all the new features in Foundation 6.4 and learn how to migrate to the XY Grid with our online webinar training. You’ll also learn all the useful UI components and Foundation JavaScript to really crush your projects.</p>
+  <a href="http://zurb.com/university/foundation-intro" target="_blank">Get registered for an upcomming Foundation training →</a>
+</div>
+
 The flex grid works very similarly to the standard float grid, but includes a number of useful features only possible with flexbox, like horizontal and vertical alignment, automatic sizing, and easier source ordering.
 
 ---
@@ -311,7 +316,7 @@ Similar alignment classes can also be applied to individual columns, which use t
 
 The `.collapse` class lets you remove column gutters (padding).
 
-There are times when you won't want each media query to be collapsed or uncollapsed. In this case, use the media query size you want and collapse or uncollapse and add that to your row element. Example shows no gutter at small media size and then adds the gutter to columns at medium.
+There are times when you won't want each media query to be collapsed or uncollapsed. In this case, use the media query size you want and collapse or uncollapse and add that to your row element. Example shows gutters at small and medium and no gutters on large and up.
 
 The `.is-collapse-child` class removes negative margins from nested row under collapsed parent.
 

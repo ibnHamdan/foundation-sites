@@ -9,6 +9,11 @@ tags:
   - block grid
 ---
 
+<div class="callout training-callout">
+  <p>Become a master of the Foundation Grids to create complex layouts faster and with less code. The new XY Grid is the newest and most powerful version. Stay up-to-date with all the new features in Foundation 6.4 and learn how to migrate to the XY Grid with our online webinar training. You’ll also learn all the useful UI components and Foundation JavaScript to really crush your projects.</p>
+  <a href="http://zurb.com/university/foundation-intro" target="_blank">Get registered for an upcomming Foundation training →</a>
+</div>
+
 ## Basics
 
 Start by adding an element with a class of `.row`. This will create a horizontal block to contain vertical columns. Then add elements with a `.column` class within that row. Specify the widths of each column with the `.small-#`, `.medium-#`, and `.large-#` classes.
@@ -383,7 +388,7 @@ You can also explicitly set the gutter size for a particular grid row by adding 
 
 The `.collapse` class lets you remove column gutters (padding).
 
-There are times when you won't want each media query to be collapsed or uncollapsed. In this case, use the media query size you want and collapse or uncollapse and add that to your row element. Example shows no gutter at small media size and then adds the gutter to columns at medium.
+There are times when you won't want each media query to be collapsed or uncollapsed. In this case, use the media query size you want and collapse or uncollapse and add that to your row element. Example shows gutters at small and medium and no gutters on large and up.
 
 <div class="docs-codepen-container">
 <a class="codepen-logo-link" href="http://codepen.io/ZURBFoundation/pen/xdWKqa?editors=1000" target="_blank"><img src="{{root}}assets/img/logos/edit-in-browser.svg" class="" height="" width="" alt="edit on codepen button"></a>
@@ -536,22 +541,22 @@ Block grids are a shorthand way to create equally-sized columns. Add a class of 
 ```html_example
 <div class="row small-up-2 medium-up-3 large-up-4">
   <div class="column column-block">
-    <img src="//placehold.it/600x600" class="thumbnail" alt="">
+    <img src="https://placehold.it/600x600" class="thumbnail" alt="">
   </div>
   <div class="column column-block">
-    <img src="//placehold.it/600x600" class="thumbnail" alt="">
+    <img src="https://placehold.it/600x600" class="thumbnail" alt="">
   </div>
   <div class="column column-block">
-    <img src="//placehold.it/600x600" class="thumbnail" alt="">
+    <img src="https://placehold.it/600x600" class="thumbnail" alt="">
   </div>
   <div class="column column-block">
-    <img src="//placehold.it/600x600" class="thumbnail" alt="">
+    <img src="https://placehold.it/600x600" class="thumbnail" alt="">
   </div>
   <div class="column column-block">
-    <img src="//placehold.it/600x600" class="thumbnail" alt="">
+    <img src="https://placehold.it/600x600" class="thumbnail" alt="">
   </div>
   <div class="column column-block">
-    <img src="//placehold.it/600x600" class="thumbnail" alt="">
+    <img src="https://placehold.it/600x600" class="thumbnail" alt="">
   </div>
 </div>
 ```
@@ -662,6 +667,7 @@ Refer to the Sass documentation below to learn how each mixin works.
   }
 }
 ```
+
 ### Custom Block Grid
 
 Use the `grid-layout()` mixin to create your own block grid.

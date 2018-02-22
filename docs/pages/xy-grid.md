@@ -4,6 +4,11 @@ description: A fully reworked new grid system in v6.4 which has all the variety 
 sass: scss/xy-grid/*.scss
 ---
 
+<div class="callout training-callout">
+  <p>The XY Grid is huge advancement in Grids. Stay up-to-date with all the new features in Foundation 6.4 with our online webinar training. You’ll come away knowing the ins and outs of the XY Grid to create complex layouts faster and with less code. Not to mention all the useful UI components and Foundation JavaScript you’ll learn. You’ll make your coworkers jealous.</p>
+  <a href="http://zurb.com/university/foundation-intro" target="_blank">Don’t miss out on the upcoming Foundation trainings →</a>
+</div>
+
 ## XY Grid Basics
 
 The XY grid works very similarly to the standard float grid, but includes a number of useful features only possible with Flexbox, like horizontal and vertical alignment, automatic sizing and a full vertical grid.
@@ -26,7 +31,7 @@ If you're using the CSS version of Foundation, you can generate a <a href="https
 @include foundation-xy-grid-classes;
 ```
 
-Note `foundation-xy-grid-classes` accepts arguements to enable/disable individual grid components. Simply set the arguement to `false` to disable output of those classes.
+Note `foundation-xy-grid-classes` accepts arguments to enable/disable individual grid components. Simply set the argument to `false` to disable output of those classes.
 These are:
 
 ```
@@ -44,7 +49,7 @@ These are:
 
 ## Basics
 
-The structure of XY grid uses `.grid-x`, `.grid-y`, and `.cell` as its base. Without [defining a gutter type](#gutters) the cells with simply split up the space without any gutters.
+The structure of XY grid uses `.grid-x`, `.grid-y`, and `.cell` as its base. Without [defining a gutter type](#gutters) the cells will simply split up the space without any gutters.
 
 <div class="docs-codepen-container">
 <a class="codepen-logo-link" href="https://codepen.io/ZURBFoundation/pen/gRYeMQ?editors=1000" target="_blank"><img src="{{root}}assets/img/logos/edit-in-browser.svg" class="" height="" width="" alt="edit on codepen button"></a>
@@ -70,7 +75,7 @@ The structure of XY grid uses `.grid-x`, `.grid-y`, and `.cell` as its base. Wit
 ## Gutters
 
 The defining feature of the XY grid is the ability to use margin AND padding grids in harmony.
-To define a grid type, simple set `.grid-margin-x` or `.grid-padding-x` on the grid.
+To define a grid type, simply set `.grid-margin-x` or `.grid-padding-x` on the grid.
 
 <div class="docs-codepen-container">
 <a class="codepen-logo-link" href="https://codepen.io/ZURBFoundation/pen/owvqYp?editors=1000" target="_blank"><img src="{{root}}assets/img/logos/edit-in-browser.svg" class="" height="" width="" alt="edit on codepen button"></a>
@@ -257,7 +262,7 @@ The internal cells will shift automatically to provide spacing vertically rather
 You can also apply margin or padding with `.grid-margin-y` and `.grid-padding-y` to apply spacing to the top and bottom of cells.
 
 <div class="callout">
-  <p>Please note for vertical grids to work, the grid needs a height. You can also use [grid frame](#grid-frame) to create a 100 vertical height grid (or 100% height if nested).</p>
+  <p>Please note for vertical grids to work, the grid needs a height. You can also use [grid frame](#grid-frame) to create a 100% viewport height vertical grid (or height:100%; if nested).</p>
 </div>
 
 
@@ -406,17 +411,34 @@ The cell size calculator can also be accessed as a function. This gives you the 
 
 ### Responsive Grids
 
-Pair `xy-cell` with the `breakpoint()` mixin to make your grid responsive.
-Refer to the Sass documentation below to learn how each mixin works and the available arguements.
+Pair `xy-cell` with the `breakpoint()` mixin to make your grid responsive. The `xy-grid` mixin will automatically detect the breakpoint in which it is, but you can force it with the `$breakpoint` option.
+Refer to the Sass documentation below to learn how each mixin works and the available arguments.
 
 ```scss
-.main-content {
+.my-cell-medium-only-8 {
   @include xy-cell();
 
+  // Generate a cell with a 8/12 width on medium breakpoint only
   @include breakpoint(medium) {
     @include xy-cell(8);
   }
 }
+```
+
+You can also use for more advanced responsive cells:
+
+```scss
+  // ... with a 8/12 width on medium breakpoint and above (with the medium gutters)
+  @include breakpoint(medium up) {
+    @include xy-cell(8);
+  }
+```
+
+```scss
+  // ... with a 8/12 width on medium, large and xlarge (with the corresponding gutters)
+  @include breakpoint(medium, large, xlarge up) {
+    @include xy-cell(8);
+  }
 ```
 
 We also have a shorthand option for the above which outputs the same CSS:
@@ -426,6 +448,10 @@ We also have a shorthand option for the above which outputs the same CSS:
   @include xy-cell-breakpoints((small: full, medium: 8));
 }
 ```
+
+<div class="callout warning">
+  If you pass multiple breakpoints to the <code>breakpoint</code> mixin, it will duplicate its content for each of them. Be careful to only use <code>breakpoint</code> with properties that should change across breakpoints.
+</div>
 
 ### Custom Block Grid
 
